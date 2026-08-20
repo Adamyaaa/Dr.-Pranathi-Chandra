@@ -122,8 +122,8 @@
 
     var vtype = (form.querySelector("input[name=vtype]:checked") || {}).value || "First consultation";
     var fullVType = vtype + " (Teleconsultation)";
-    var pday = form.pday.value;
-    var psession = form.psession.value;
+    var pday = ""; // Handled by Calendly
+    var psession = ""; // Handled by Calendly
     var pnote = form.pnote.value.trim();
 
     var pretty = "";
@@ -175,7 +175,7 @@
       "Mobile: " + phone.slice(-10),
       "Email: " + email,
       "Visit: " + fullVType,
-      "Preferred: " + (pretty || "Any day") + ", " + psession,
+      "Slot: Selected via calendar",
       pnote ? "\n" + pnote : "",
       "",
       "Sent by: " + email
@@ -195,21 +195,4 @@
 })();
 
 
-// -----------------------------------------------------------------------------
-// Calendly -> WhatsApp Hybrid Integration
-// -----------------------------------------------------------------------------
-function isCalendlyEvent(e) {
-  return e.data.event && e.data.event.indexOf('calendly') === 0;
-}
 
-window.addEventListener('message', function(e) {
-  if (isCalendlyEvent(e)) {
-    if (e.data.event === 'calendly.event_scheduled') {
-      var msg = encodeURIComponent("Hi, I just booked an online teleconsultation on your website! I am sharing my medical reports below:");
-      var waUrl = "https://wa.me/" + CLINIC_WA + "?text=" + msg;
-      
-      // Automatically open WhatsApp in a new tab
-      window.open(waUrl, "_blank");
-    }
-  }
-});

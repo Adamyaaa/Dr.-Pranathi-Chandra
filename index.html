@@ -184,10 +184,48 @@
 
     <div class="book-grid">
       <div class="booking-left">
+        <label style="display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px;">1. Select your time slot</label>
         <!-- Calendly inline widget begin -->
-        <div class="calendly-inline-widget" data-url="https://calendly.com/drpranathichandra/30min?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:320px;height:700px;background:var(--surface);border:1px solid var(--line);border-radius:4px;"></div>
+        <div class="calendly-inline-widget" data-url="https://calendly.com/drpranathichandra/30min?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:320px;height:700px;background:var(--surface);border:1px solid var(--line);border-radius:4px; margin-bottom: 40px;"></div>
         <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
         <!-- Calendly inline widget end -->
+
+        <label style="display: block; font-weight: 600; margin-bottom: 12px; font-size: 14px; border-top: 1px solid var(--line); padding-top: 40px;">2. Send your symptoms on WhatsApp</label>
+        <p style="font-size: 14px; color: var(--ink-2); margin-bottom: 24px;">Once you book a slot above, fill this form to send your symptoms and details directly to the clinic's WhatsApp.</p>
+        <form id="bookForm" novalidate>
+          <div class="row2">
+            <div class="field">
+              <label for="pname">Patient name</label>
+              <input id="pname" name="pname" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="pphone">Mobile number</label>
+              <input id="pphone" name="pphone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10 digits" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Type of visit</label>
+            <div class="segment">
+              <label><input type="radio" name="vtype" value="First consultation" checked>First consultation</label>
+              <label><input type="radio" name="vtype" value="Follow-up">Follow-up</label>
+              <label><input type="radio" name="vtype" value="Report review">Report review</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="pnote">What is the problem (Symptoms)</label>
+            <textarea id="pnote" name="pnote" placeholder="A line or two is enough — or use the note builder above."></textarea>
+          </div>
+
+          <label class="consent">
+            <input type="checkbox" id="pconsent" required>
+            <span>I agree to be contacted on WhatsApp, SMS and phone about this appointment. <a href="privacy.html">How your information is handled</a>.</span>
+          </label>
+
+          <button class="btn btn-primary" type="submit" style="width:100%">Send details on WhatsApp</button>
+          <p class="form-note" id="formNote">Opens WhatsApp with your details filled in. You still press send.</p>
+        </form>
       </div>
 
       <div id="visit">
