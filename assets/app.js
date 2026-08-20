@@ -140,8 +140,7 @@
 
     try {
       // Send to our Render/Node backend
-      // NOTE: Change this URL to your deployed Render URL in production!
-      const API_URL = "http://localhost:5000/api/book";
+      const API_URL = "https://dr-pranathi-chandra-live.onrender.com/api/book";
       
       const response = await fetch(API_URL, {
         method: "POST",
