@@ -1,0 +1,291 @@
+/* Dr. K. Pranathi Chandra — Consulting Pulmonologist, Hyderabad
+   Design system. Palette derived from gas exchange: venous ink, arterial red, air. */
+
+:root{
+  --ink:#0E2032;
+  --ink-2:#3D566E;
+  --ink-3:#6E8399;
+  --air:#EFF4F7;
+  --air-2:#E3EBF1;
+  --surface:#FFFFFF;
+  --arterial:#BE1E2D;
+  --arterial-soft:#F6E4E5;
+  --line:#D3DFE7;
+  --amber:#9A5B00;
+  --amber-bg:#FDF3E2;
+
+  --f-display:"Newsreader",Georgia,serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+
+  --wrap:1140px;
+  --r:4px;
+  --breath:10s; /* 4s in, 6s out — a resting respiratory cycle */
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--air);color:var(--ink);
+  font-family:var(--f-body);font-size:17px;line-height:1.62;
+  font-synthesis-weight:none;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:600;line-height:1.12;margin:0;letter-spacing:-.015em}
+p{margin:0 0 1em}
+:focus-visible{outline:2.5px solid var(--arterial);outline-offset:3px;border-radius:2px}
+
+.wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:22px}
+.eyebrow{
+  font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 14px;display:flex;align-items:center;gap:10px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--line);max-width:70px}
+
+/* ---------- preview banner ---------- */
+.preview{background:var(--ink);color:#CBD9E4;font-size:13.5px;padding:9px 0}
+.preview .wrap{display:flex;gap:14px;align-items:center;justify-content:space-between}
+.preview b{color:#fff;font-weight:600}
+.preview button{
+  background:none;border:1px solid #38506A;color:#9FB4C6;font:inherit;font-size:12px;
+  padding:3px 10px;border-radius:99px;cursor:pointer;flex:none
+}
+.preview button:hover{color:#fff;border-color:#6A8299}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:40;background:rgba(239,244,247,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:18px;min-height:66px}
+.mark{display:flex;flex-direction:column;line-height:1.15;text-decoration:none;margin-right:auto}
+.mark strong{font-family:var(--f-display);font-size:19px;font-weight:600;letter-spacing:-.01em}
+.mark span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.nav{display:flex;gap:22px;font-size:14.5px}
+.nav a{text-decoration:none;color:var(--ink-2)}
+.nav a:hover{color:var(--arterial)}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:var(--f-body);font-size:15.5px;font-weight:600;letter-spacing:.005em;
+  padding:13px 22px;border-radius:var(--r);text-decoration:none;border:1.5px solid transparent;
+  cursor:pointer;transition:transform .12s ease,background .15s ease,border-color .15s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--arterial);color:#fff}
+.btn-primary:hover{background:#A5161F}
+.btn-ghost{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+.btn-sm{padding:9px 16px;font-size:14px}
+.btn[disabled]{opacity:.45;pointer-events:none}
+
+/* ---------- hero ---------- */
+.hero{padding:44px 0 34px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.16fr .84fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(36px,5vw,58px);letter-spacing:-.03em}
+.hero h1 em{display:block}
+.hero h1 em{font-style:normal;color:var(--arterial)}
+.lede{font-size:19px;color:var(--ink-2);max-width:46ch;margin-top:18px}
+
+.creds{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:7px}
+.creds li{
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;
+  background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:6px 13px;color:var(--ink-2)
+}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-note{font-size:13.5px;color:var(--ink-3);margin-top:14px}
+
+/* photo + breathing field */
+.portrait-wrap{position:relative;justify-self:center}
+.portrait-wrap::before{
+  content:"";position:absolute;left:50%;top:50%;width:132%;aspect-ratio:1;
+  transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(190,30,45,.13),rgba(14,32,50,.05) 46%,transparent 66%);
+  animation:breathe var(--breath) ease-in-out infinite;
+}
+@keyframes breathe{
+  0%,100%{transform:translate(-50%,-50%) scale(.93);opacity:.55}
+  40%{transform:translate(-50%,-50%) scale(1.05);opacity:1}   /* ~4s inhale, 6s exhale */
+}
+.portrait{
+  position:relative;width:min(340px,100%);border-radius:var(--r);
+  border:1px solid var(--line);background:var(--surface);
+  box-shadow:0 26px 58px -30px rgba(14,32,50,.5)
+}
+.portrait img{border-radius:3px}
+.stamp{
+  position:absolute;right:-14px;bottom:26px;background:var(--ink);color:#fff;
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.09em;padding:9px 14px;border-radius:2px;line-height:1.5
+}
+.stamp b{display:block;color:#8FA9BE;font-weight:400;font-size:9.5px}
+
+/* ---------- emergency strip ---------- */
+.urgent{background:var(--ink);color:#D5E1EA;padding:15px 0;font-size:14.5px}
+.urgent .wrap{display:flex;gap:13px;align-items:flex-start}
+.urgent svg{flex:none;margin-top:3px}
+.urgent b{color:#fff}
+
+/* ---------- sections ---------- */
+section{padding:64px 0}
+.section-head{max-width:62ch;margin-bottom:34px}
+.section-head h2{font-size:clamp(27px,3.4vw,38px)}
+.section-head p{margin-top:12px;color:var(--ink-2);font-size:17px}
+.alt{background:var(--surface);border-block:1px solid var(--line)}
+
+/* condition cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:14px}
+.card{
+  display:block;text-decoration:none;background:var(--air);border:1px solid var(--line);
+  border-radius:var(--r);padding:22px;transition:border-color .15s,transform .15s
+}
+.alt .card{background:var(--air)}
+.card:hover{border-color:var(--ink);transform:translateY(-2px)}
+.card .n{font-family:var(--f-mono);font-size:11px;color:var(--arterial);letter-spacing:.1em}
+.card h3{font-size:21px;margin:10px 0 8px}
+.card p{font-size:14.5px;color:var(--ink-2);margin:0}
+.card .go{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3);margin-top:14px;display:block}
+
+/* ---------- symptom check (signature) ---------- */
+.check{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,3.6vw,38px)}
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+fieldset{border:0;padding:0;margin:0 0 22px;min-width:0}
+legend{
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);padding:0;margin-bottom:12px
+}
+.opt{display:flex;gap:11px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);
+  border-radius:var(--r);margin-bottom:7px;cursor:pointer;background:var(--air);font-size:15px;transition:border-color .12s,background .12s}
+.opt:hover{border-color:var(--ink-3)}
+.opt input{margin:4px 0 0;accent-color:var(--arterial);flex:none;width:16px;height:16px}
+.opt:has(input:checked){border-color:var(--arterial);background:var(--arterial-soft)}
+.opt span small{display:block;color:var(--ink-3);font-size:12.5px;line-height:1.45}
+
+.readout{align-self:start;background:var(--ink);color:#DCE6ED;border-radius:var(--r);padding:24px;position:sticky;top:86px}
+.readout h3{color:#fff;font-size:20px;margin-bottom:10px}
+.readout p{font-size:14.5px;color:#A9BECE}
+.slip{
+  font-family:var(--f-mono);font-size:12.5px;line-height:1.75;background:#0A1826;border:1px solid #274058;
+  border-radius:3px;padding:15px;color:#C6D6E2;white-space:pre-wrap;word-break:break-word;min-height:96px;margin:14px 0 16px
+}
+.slip .ph{color:#5E7B94}
+.readout .btn-primary{width:100%}
+.readout .fine{font-size:12px;color:#7F97AC;margin:12px 0 0}
+
+/* ---------- booking form ---------- */
+.book-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:start}
+.field{margin-bottom:16px}
+.field label{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:7px}
+.field input,.field select,.field textarea{
+  width:100%;font-family:var(--f-body);font-size:16px;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;line-height:1.4
+}
+.field textarea{min-height:82px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ink)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.segment{display:flex;gap:8px;flex-wrap:wrap}
+.segment label{
+  flex:1 1 auto;text-align:center;border:1px solid var(--line);border-radius:var(--r);padding:11px 10px;
+  cursor:pointer;font-size:14.5px;background:var(--surface);text-transform:none;letter-spacing:0;
+  font-family:var(--f-body);color:var(--ink);margin:0
+}
+.segment input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.segment label:has(input:focus-visible){outline:2.5px solid var(--arterial);outline-offset:3px}
+.segment label:has(input:checked){border-color:var(--arterial);background:var(--arterial-soft);color:var(--arterial);font-weight:600}
+.consent{display:flex;gap:11px;align-items:flex-start;font-size:13.5px;color:var(--ink-2);margin:6px 0 18px}
+.consent input{margin-top:4px;accent-color:var(--arterial);width:16px;height:16px;flex:none}
+.form-note{font-size:13px;color:var(--ink-3);margin-top:12px}
+
+.visit{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.visit dl{margin:0}
+.visit .r{display:grid;grid-template-columns:118px 1fr;gap:16px;padding:15px 20px;border-bottom:1px solid var(--line)}
+.visit .r:last-child{border-bottom:0}
+.visit dt{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);padding-top:3px}
+.visit dd{margin:0;font-size:15.5px}
+.visit dd small{display:block;color:var(--ink-3);font-size:13px}
+
+/* placeholder marker */
+.tbc{border-bottom:2px dotted var(--amber);background:var(--amber-bg);padding:0 3px;color:var(--amber);font-weight:600}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+.train{list-style:none;margin:0;padding:0;border-left:1.5px solid var(--line)}
+.train li{padding:0 0 24px 24px;position:relative}
+.train li::before{content:"";position:absolute;left:-5.5px;top:8px;width:9px;height:9px;border-radius:50%;
+  background:var(--surface);border:1.5px solid var(--arterial)}
+.train h4{font-size:18px;margin-bottom:3px}
+.train .yr{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--ink-3);display:block;margin-bottom:5px}
+.train p{font-size:14.5px;color:var(--ink-2);margin:0}
+
+/* ---------- faq ---------- */
+.faq{max-width:760px}
+details{border-bottom:1px solid var(--line);padding:16px 0}
+summary{cursor:pointer;font-family:var(--f-display);font-size:19px;font-weight:600;list-style:none;
+  display:flex;justify-content:space-between;gap:18px;align-items:baseline}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--f-mono);color:var(--arterial);font-size:19px;flex:none}
+details[open] summary::after{content:"–"}
+details p{margin:12px 0 0;color:var(--ink-2);font-size:15.5px;max-width:70ch}
+
+/* ---------- article (condition pages) ---------- */
+.article{max-width:730px}
+.article h2{font-size:28px;margin:38px 0 12px}
+.article h3{font-size:20px;margin:26px 0 8px}
+.article ul{padding-left:20px;color:var(--ink-2)}
+.article li{margin-bottom:8px}
+.article .callout{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--arterial);
+  border-radius:var(--r);padding:20px 22px;margin:28px 0}
+.article .callout p:last-child{margin:0}
+.crumb{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;color:var(--ink-3);margin-bottom:18px}
+.crumb a{color:var(--ink-3)}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:#93A9BC;padding:52px 0 34px;font-size:14px}
+footer a{color:#C4D4E0}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;margin-bottom:34px}
+footer h4{color:#fff;font-size:17px;margin-bottom:12px}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:8px}
+.disclaimer{border-top:1px solid #243B52;padding-top:22px;font-size:12.5px;color:#6E869C;line-height:1.68}
+.regline{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;color:#8FA9BE;margin-top:12px}
+
+/* ---------- sticky mobile bar ---------- */
+.sticky-bar{display:none}
+
+@media (max-width:900px){
+  .hero-grid,.check-grid,.book-grid,.about-grid,.foot-grid{grid-template-columns:1fr}
+  .hero-grid{gap:28px}
+  .portrait{width:min(258px,70%)}
+  .stamp{right:auto;left:6px;bottom:-14px}
+  .hero h1 em{display:inline}
+  .readout{position:static}
+  .nav{display:none}
+  .foot-grid{gap:28px}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .mark strong{font-size:15.5px}
+  .mark span{font-size:9px;letter-spacing:.07em}
+  header .wrap{min-height:58px;gap:10px}
+  .preview{font-size:12.5px;padding:7px 0}
+  .preview .wrap{gap:10px}
+  .hero h1{font-size:clamp(31px,8.4vw,40px)}
+  .lede{font-size:17px}
+  .creds li{font-size:10.5px;padding:5px 11px}
+  .creds{gap:6px}
+  section{padding:46px 0}
+  .hero{padding:34px 0 26px}
+  .row2{grid-template-columns:1fr}
+  .visit .r{grid-template-columns:1fr;gap:4px}
+  .sticky-bar{
+    display:flex;position:fixed;inset:auto 0 0 0;z-index:50;gap:9px;padding:9px 14px calc(9px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.96);border-top:1px solid var(--line);backdrop-filter:blur(8px)
+  }
+  .sticky-bar .btn{flex:1;padding:12px 8px;font-size:14.5px}
+  footer{padding-bottom:96px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+  html{scroll-behavior:auto}
+}
+@media print{.preview,.sticky-bar,header{display:none}}

@@ -1,0 +1,4 @@
+# Preview build — not for indexing.
+# Remove this file and the noindex meta tags before launch.
+User-agent: *
+Disallow: /
