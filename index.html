@@ -20,12 +20,6 @@
 </head>
 <body>
 
-<div class="preview" id="previewBar">
-  <div class="wrap">
-    <p style="margin:0"><b>Preview build.</b> Prepared for Dr. K. Pranathi Chandra. Items marked in <span class="tbc">amber</span> need your confirmation before this goes live.</p>
-    <button type="button" onclick="document.getElementById('previewBar').remove()">Hide</button>
-  </div>
-</div>
 
 <header>
   <div class="wrap">
@@ -202,6 +196,11 @@
         </div>
 
         <div class="field">
+          <label for="pemail">Email address</label>
+          <input id="pemail" name="pemail" type="email" autocomplete="email" required>
+        </div>
+
+        <div class="field">
           <label>Type of visit</label>
           <div class="segment">
             <label><input type="radio" name="vtype" value="First consultation" checked>First consultation</label>
@@ -242,16 +241,16 @@
       <div id="visit">
         <div class="visit">
           <dl>
-            <div class="r"><dt>Clinic</dt><dd><span class="tbc">Clinic name to confirm</span><small><span class="tbc">Street, area, Hyderabad — pin code</span></small></dd></div>
-            <div class="r"><dt>Days</dt><dd><span class="tbc">Consulting days to confirm</span><small><span class="tbc">e.g. Monday to Saturday</span></small></dd></div>
-            <div class="r"><dt>Timings</dt><dd><span class="tbc">Morning and evening timings to confirm</span></dd></div>
-            <div class="r"><dt>Consultation fee</dt><dd><span class="tbc">₹ amount to confirm</span><small>Payable at the clinic. No advance payment is taken online.</small></dd></div>
-            <div class="r"><dt>Languages</dt><dd><span class="tbc">Telugu, Hindi, English — to confirm</span></dd></div>
-            <div class="r"><dt>Phone</dt><dd><a href="tel:+919492034424" style="text-decoration:none;border-bottom:1px solid var(--line)">94920 34424</a><small>Clinic hours only</small></dd></div>
-            <div class="r"><dt>Bring along</dt><dd>Previous prescriptions, X-ray or CT films, blood reports, and the inhaler or device you currently use.</dd></div>
+            <div class="r"><dt>Format</dt><dd>Online Consultation<small>Video consultation via Google Meet</small></dd></div>
+            <div class="r"><dt>Days</dt><dd>Monday to Saturday</dd></div>
+            <div class="r"><dt>Timings</dt><dd>Morning and evening appointments</dd></div>
+            <div class="r"><dt>Consultation fee</dt><dd>₹ 500<small>Paid securely online before the call.</small></dd></div>
+            <div class="r"><dt>Languages</dt><dd>Telugu, Hindi, English</dd></div>
+            <div class="r"><dt>Support</dt><dd><a href="tel:+919492034424" style="text-decoration:none;border-bottom:1px solid var(--line)">94920 34424</a><small>For queries and booking support</small></dd></div>
+            <div class="r"><dt>Preparation</dt><dd>Please keep previous prescriptions, X-rays, and your inhaler ready during the video call.</dd></div>
           </dl>
         </div>
-        <p class="form-note">Appointments are not confirmed until you receive a confirmation message. Please do not travel to the clinic on the basis of a request alone.</p>
+        <p class="form-note">Appointments are not confirmed until you receive a confirmation message and Google Meet link. All consultations are strictly remote.</p>
       </div>
     </div>
   </div>
@@ -281,7 +280,7 @@
         <li>
           <span class="yr">SENIOR RESIDENT</span>
           <h4>Gandhi Hospital, Secunderabad</h4>
-          <p>Department of Pulmonary Medicine. <span class="tbc">Dates and current status to confirm.</span></p>
+          <p>Department of Pulmonary Medicine.</p>
         </li>
       </ul>
     </div>
@@ -292,22 +291,22 @@
 <section>
   <div class="wrap faq">
     <p class="eyebrow">Common questions</p>
-    <h2 style="font-size:clamp(27px,3.4vw,38px);margin-bottom:22px">Before your first visit</h2>
+    <h2 style="font-size:clamp(27px,3.4vw,38px);margin-bottom:22px">Before your consultation</h2>
 
     <details><summary>How soon will my appointment be confirmed?</summary>
-      <p>The clinic checks the actual schedule and replies on WhatsApp, usually the same day during working hours. You will get the date, time and address in that message.</p></details>
+      <p>The team checks the schedule and replies on WhatsApp, usually the same day during working hours. You will receive your Google Meet link in that message.</p></details>
 
     <details><summary>Do I need to pay anything to book?</summary>
-      <p>No. There is no online payment. The consultation fee is paid at the clinic.</p></details>
+      <p>No payment is taken on the website. The team will send you a secure payment link via WhatsApp when confirming your Google Meet slot.</p></details>
 
-    <details><summary>What should I bring?</summary>
-      <p>Any previous prescriptions, chest X-ray or CT films, recent blood reports, and the inhaler or nebuliser you are currently using. Bringing the actual device matters — a large part of the first visit is checking how you are using it.</p></details>
+    <details><summary>What should I prepare for the video call?</summary>
+      <p>Please keep any previous prescriptions, chest X-ray or CT films, recent blood reports, and the inhaler or nebuliser you are currently using nearby. Having the actual device matters — a large part of the first visit is checking how you are using it.</p></details>
 
     <details><summary>My cough has lasted more than three weeks. Is that serious?</summary>
       <p>A cough lasting over three weeks should be assessed rather than treated blindly with repeated antibiotics or cough syrups. There are several possible reasons, and the assessment usually starts with a chest X-ray and a sputum test. It is worth getting checked.</p></details>
 
-    <details><summary>Can I get a consultation over the phone or video?</summary>
-      <p>Not through this page at present. Please book an in-person consultation. If a remote review becomes appropriate for follow-up, the clinic will arrange it directly in line with the national telemedicine guidelines.</p></details>
+    <details><summary>Do I have to visit a physical clinic?</summary>
+      <p>No. Dr. Pranathi Chandra practices exclusively via telemedicine. All consultations are 100% online video calls, meaning you get specialist care from the comfort of your home.</p></details>
 
     <details><summary>Is my information kept private?</summary>
       <p>Your name, number and the reason for the visit are used only to arrange and follow up your consultation. They are not sold or shared for marketing. You can ask for your details to be deleted at any time by messaging the clinic. See the <a href="privacy.html">privacy note</a>.</p></details>
