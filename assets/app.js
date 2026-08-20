@@ -8,7 +8,7 @@
   var CLINIC_WA = "919492034424"; // Original doctor's number
   // var CLINIC_WA = "917389358793"; // User's test number
 
-  var CLINIC_EMAIL = "pranathichandra208@gmail.com"; // Original doctor's email
+  var CLINIC_EMAIL = "drpranathichandra@gmail.com"; // Original doctor's email
   // var CLINIC_EMAIL = "adamyajain1309@gmail.com"; // User's test email
 
   var yr = document.getElementById("yr");

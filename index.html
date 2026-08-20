@@ -183,7 +183,15 @@
     </div>
 
     <div class="book-grid">
-      <form id="bookForm" novalidate>
+      <div class="booking-left">
+        <div class="calendar-container" style="margin-bottom: 30px;">
+          <label style="display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px;">1. Check Available Slots</label>
+          <iframe src="https://calendar.google.com/calendar/embed?src=drpranathichandra%40gmail.com&ctz=Asia%2FKolkata&mode=WEEK&showTitle=0&showPrint=0&showCalendars=0&showTz=0" style="border: 0; width: 100%; height: 400px; border-radius: 4px; border: 1px solid var(--line);" frameborder="0" scrolling="no"></iframe>
+          <p style="font-size: 13px; color: var(--ink-2); margin-top: 8px;">Note down a free slot, then fill the form below.</p>
+        </div>
+
+        <label style="display: block; font-weight: 600; margin-bottom: 12px; font-size: 14px;">2. Request Appointment</label>
+        <form id="bookForm" novalidate>
         <div class="row2">
           <div class="field">
             <label for="pname">Patient name</label>
@@ -237,6 +245,7 @@
         <button class="btn btn-primary" type="submit" style="width:100%">Send request on WhatsApp</button>
         <p class="form-note" id="formNote">Opens WhatsApp with your details filled in. You still press send.</p>
       </form>
+      </div>
 
       <div id="visit">
         <div class="visit">
@@ -337,7 +346,7 @@
         <h4>Contact</h4>
         <ul>
           <li><a href="tel:+919492034424">94920 34424</a></li>
-          <li><a href="mailto:pranathichandra208@gmail.com">Email the clinic</a></li>
+          <li><a href="mailto:drpranathichandra@gmail.com">Email the clinic</a></li>
           <li><a href="#book">Request an appointment</a></li>
           <li><a href="privacy.html">Privacy note</a></li>
         </ul>
@@ -363,7 +372,7 @@
   "medicalSpecialty":"Pulmonary",
   "image":"assets/og.jpg",
   "telephone":"+91-94920-34424",
-  "email":"pranathichandra208@gmail.com",
+  "email":"drpranathichandra@gmail.com",
   "address":{"@type":"PostalAddress","addressLocality":"Hyderabad","addressRegion":"Telangana","addressCountry":"IN"},
   "areaServed":{"@type":"City","name":"Hyderabad"},
   "availableService":[
