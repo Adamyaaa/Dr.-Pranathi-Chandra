@@ -138,8 +138,40 @@
     submitBtn.textContent = "Saving request...";
     submitBtn.disabled = true;
 
+    var msg = [
+      "Online Appointment Request — Dr. K. Pranathi Chandra",
+      "",
+      "Name: " + name,
+      "Mobile: " + phone.slice(-10),
+      "Email: " + email,
+      "Visit: " + fullVType,
+      "Slot: Selected via calendar",
+      pnote ? "\n" + pnote : "",
+      "",
+      "Sent by: " + email
+    ].filter(Boolean).join("\n");
+
+    // Open WhatsApp synchronously to prevent popup blockers
+    var waUrl = "https://wa.me/" + CLINIC_WA + "?text=" + encodeURIComponent(msg);
+    var waWindow = window.open(waUrl, "_blank", "noopener");
+
+    // Update UI immediately
+    form.innerHTML =
+      '<div style="background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--arterial);border-radius:4px;padding:26px">' +
+      '<p style="font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 10px">Request logged securely</p>' +
+      '<h3 style="font-size:23px;margin:0 0 10px">Press send in WhatsApp to notify the clinic</h3>' +
+      '<p style="color:var(--ink-2);margin:0 0 6px">Your request is saved. WhatsApp has opened with your details filled in. The clinic is notified once you press send there.</p>' +
+      '<p style="color:var(--ink-2);margin:0 0 18px">The clinic will reply to confirm your slot and send a Google Meet link from ' + CLINIC_EMAIL + '. No travel required.</p>' +
+      '<a class="btn btn-ghost" href="tel:+919492034424">Call instead — 94920 34424</a>' +
+      "</div>";
+
+    // Fallback if popup was aggressively blocked
+    if (!waWindow || waWindow.closed || typeof waWindow.closed == 'undefined') {
+      window.location.href = waUrl;
+    }
+
     try {
-      // Send to our Render/Node backend
+      // Send to our Render/Node backend in the background
       const API_URL = "https://dr-pranathi-chandra-live.onrender.com/api/book";
       
       const response = await fetch(API_URL, {
@@ -159,38 +191,11 @@
       if (!response.ok) {
         throw new Error("Failed to save to database");
       }
-      
       console.log("Successfully saved to database");
       
     } catch (err) {
       console.error(err);
-      // We will still proceed to WhatsApp even if the DB fails
-      // so the patient is not blocked from booking.
     }
-
-    var msg = [
-      "Online Appointment Request — Dr. K. Pranathi Chandra",
-      "",
-      "Name: " + name,
-      "Mobile: " + phone.slice(-10),
-      "Email: " + email,
-      "Visit: " + fullVType,
-      "Slot: Selected via calendar",
-      pnote ? "\n" + pnote : "",
-      "",
-      "Sent by: " + email
-    ].filter(Boolean).join("\n");
-
-    window.open("https://wa.me/" + CLINIC_WA + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
-
-    form.innerHTML =
-      '<div style="background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--arterial);border-radius:4px;padding:26px">' +
-      '<p style="font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 10px">Request logged securely</p>' +
-      '<h3 style="font-size:23px;margin:0 0 10px">Press send in WhatsApp to notify the clinic</h3>' +
-      '<p style="color:var(--ink-2);margin:0 0 6px">Your request is saved. WhatsApp has opened with your details filled in. The clinic is notified once you press send there.</p>' +
-      '<p style="color:var(--ink-2);margin:0 0 18px">The clinic will reply to confirm your slot and send a Google Meet link from ' + CLINIC_EMAIL + '. No travel required.</p>' +
-      '<a class="btn btn-ghost" href="tel:+919492034424">Call instead — 94920 34424</a>' +
-      "</div>";
   });
 })();
 
