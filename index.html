@@ -178,73 +178,16 @@
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">Request an appointment</p>
-      <h2>Ask for a slot. The clinic confirms it.</h2>
-      <p>Nothing is booked automatically. You send a request, the clinic checks the actual schedule and confirms on WhatsApp with the date, time and address. If the preferred day is full, you will be offered the nearest alternative.</p>
+      <h2>Select a time. Sync your reports on WhatsApp.</h2>
+      <p>Pick a convenient 30-minute slot from the live calendar below. Once confirmed, WhatsApp will automatically open so you can seamlessly share your past medical reports with the clinic.</p>
     </div>
 
     <div class="book-grid">
       <div class="booking-left">
-        <div class="calendar-container" style="margin-bottom: 30px;">
-          <label style="display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px;">1. Check Available Slots</label>
-          <iframe src="https://calendar.google.com/calendar/embed?src=drpranathichandra%40gmail.com&ctz=Asia%2FKolkata&mode=WEEK&showTitle=0&showPrint=0&showCalendars=0&showTz=0" style="border: 0; width: 100%; height: 400px; border-radius: 4px; border: 1px solid var(--line);" frameborder="0" scrolling="no"></iframe>
-          <p style="font-size: 13px; color: var(--ink-2); margin-top: 8px;">Note down a free slot, then fill the form below.</p>
-        </div>
-
-        <label style="display: block; font-weight: 600; margin-bottom: 12px; font-size: 14px;">2. Request Appointment</label>
-        <form id="bookForm" novalidate>
-        <div class="row2">
-          <div class="field">
-            <label for="pname">Patient name</label>
-            <input id="pname" name="pname" type="text" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="pphone">Mobile number</label>
-            <input id="pphone" name="pphone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10 digits" required>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="pemail">Email address</label>
-          <input id="pemail" name="pemail" type="email" autocomplete="email" required>
-        </div>
-
-        <div class="field">
-          <label>Type of visit</label>
-          <div class="segment">
-            <label><input type="radio" name="vtype" value="First consultation" checked>First consultation</label>
-            <label><input type="radio" name="vtype" value="Follow-up">Follow-up</label>
-            <label><input type="radio" name="vtype" value="Report review">Report review</label>
-          </div>
-        </div>
-
-        <div class="row2">
-          <div class="field">
-            <label for="pday">Preferred day</label>
-            <input id="pday" name="pday" type="date">
-          </div>
-          <div class="field">
-            <label for="psession">Preferred session</label>
-            <select id="psession" name="psession">
-              <option>Morning (10 AM - 1 PM)</option>
-              <option>Afternoon (1 PM - 5 PM)</option>
-              <option>Anytime</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="pnote">What is the problem</label>
-          <textarea id="pnote" name="pnote" placeholder="A line or two is enough — or use the note builder above."></textarea>
-        </div>
-
-        <label class="consent">
-          <input type="checkbox" id="pconsent" required>
-          <span>I agree to be contacted on WhatsApp, SMS and phone about this appointment. My details will be used only to arrange and follow up this consultation. <a href="privacy.html">How your information is handled</a>.</span>
-        </label>
-
-        <button class="btn btn-primary" type="submit" style="width:100%">Send request on WhatsApp</button>
-        <p class="form-note" id="formNote">Opens WhatsApp with your details filled in. You still press send.</p>
-      </form>
+        <!-- Calendly inline widget begin -->
+        <div class="calendly-inline-widget" data-url="https://calendly.com/drpranathichandra/30min?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:320px;height:700px;background:var(--surface);border:1px solid var(--line);border-radius:4px;"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        <!-- Calendly inline widget end -->
       </div>
 
       <div id="visit">

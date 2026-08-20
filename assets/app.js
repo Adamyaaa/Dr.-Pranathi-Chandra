@@ -193,3 +193,23 @@
       "</div>";
   });
 })();
+
+
+// -----------------------------------------------------------------------------
+// Calendly -> WhatsApp Hybrid Integration
+// -----------------------------------------------------------------------------
+function isCalendlyEvent(e) {
+  return e.data.event && e.data.event.indexOf('calendly') === 0;
+}
+
+window.addEventListener('message', function(e) {
+  if (isCalendlyEvent(e)) {
+    if (e.data.event === 'calendly.event_scheduled') {
+      var msg = encodeURIComponent("Hi, I just booked an online teleconsultation on your website! I am sharing my medical reports below:");
+      var waUrl = "https://wa.me/" + CLINIC_WA + "?text=" + msg;
+      
+      // Automatically open WhatsApp in a new tab
+      window.open(waUrl, "_blank");
+    }
+  }
+});
