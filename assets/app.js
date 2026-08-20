@@ -146,35 +146,34 @@
       "Email: " + email,
       "Visit: " + fullVType,
       "Slot: Selected via calendar",
-      pnote ? "\n" + pnote : "",
+      pnote ? "\\n" + pnote : "",
       "",
       "Sent by: " + email
-    ].filter(Boolean).join("\n");
+    ].filter(Boolean).join("\\n");
 
-    // Open WhatsApp synchronously to prevent popup blockers
-    var waUrl = "https://wa.me/" + CLINIC_WA + "?text=" + encodeURIComponent(msg);
-    var waWindow = window.open(waUrl, "_blank", "noopener");
+    // Save URL for later
+    window.pendingWaUrl = "https://wa.me/" + CLINIC_WA + "?text=" + encodeURIComponent(msg);
 
-    // Update UI immediately
-    form.innerHTML =
-      '<div style="background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--arterial);border-radius:4px;padding:26px">' +
-      '<p style="font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 10px">Request logged securely</p>' +
-      '<h3 style="font-size:23px;margin:0 0 10px">Press send in WhatsApp to notify the clinic</h3>' +
-      '<p style="color:var(--ink-2);margin:0 0 6px">Your request is saved. WhatsApp has opened with your details filled in. The clinic is notified once you press send there.</p>' +
-      '<p style="color:var(--ink-2);margin:0 0 18px">The clinic will reply to confirm your slot and send a Google Meet link from ' + CLINIC_EMAIL + '. No travel required.</p>' +
-      '<a class="btn btn-ghost" href="tel:+919492034424">Call instead — 94920 34424</a>' +
-      "</div>";
-
-    // Fallback if popup was aggressively blocked
-    if (!waWindow || waWindow.closed || typeof waWindow.closed == 'undefined') {
-      window.location.href = waUrl;
+    // Transition UI to Calendly
+    document.getElementById("formWrapper").style.display = "none";
+    document.getElementById("calendlyWrapper").style.display = "block";
+    
+    // Auto-fill Calendly with the data they just typed
+    if (window.Calendly) {
+      window.Calendly.initInlineWidget({
+        url: 'https://calendly.com/drpranathichandra/30min?hide_event_type_details=1&hide_gdpr_banner=1',
+        parentElement: document.getElementById('calendlyContainer'),
+        prefill: {
+          name: name,
+          email: email
+        }
+      });
     }
 
+    // Send to DB in background
     try {
-      // Send to our Render/Node backend in the background
       const API_URL = "https://dr-pranathi-chandra-live.onrender.com/api/book";
-      
-      const response = await fetch(API_URL, {
+      await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -187,17 +186,19 @@
           pnote: pnote
         })
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to save to database");
-      }
-      console.log("Successfully saved to database");
-      
     } catch (err) {
       console.error(err);
     }
   });
+
+  // Listen for Calendly completion
+  window.addEventListener('message', function(e) {
+    if (e.data.event && e.data.event.indexOf('calendly') === 0) {
+      if (e.data.event === 'calendly.event_scheduled') {
+        if (window.pendingWaUrl) {
+           window.location.href = window.pendingWaUrl;
+        }
+      }
+    }
+  });
 })();
-
-
-
