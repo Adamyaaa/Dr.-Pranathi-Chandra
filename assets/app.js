@@ -99,26 +99,67 @@
   var formNote = document.getElementById("formNote");
   if (!form) return;
 
+  function clearErrors() {
+    ['pname', 'pphone', 'pemail', 'pnote'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.borderColor = "";
+    });
+    formNote.textContent = "";
+    formNote.style.color = "";
+    formNote.style.fontWeight = "";
+  }
+
   function fail(msg, el) {
-    formNote.textContent = msg;
+    clearErrors();
+    formNote.textContent = "⚠️ " + msg;
     formNote.style.color = "var(--arterial)";
-    if (el) el.focus();
+    formNote.style.fontWeight = "600";
+    if (el) {
+      el.style.borderColor = "var(--arterial)";
+      el.focus();
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
     return false;
   }
 
+  // Clear red border when user types into any field
+  ['pname', 'pphone', 'pemail', 'pnote'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.addEventListener("input", function() {
+        if (this.value.trim().length > 0) {
+          this.style.borderColor = "";
+        }
+      });
+    }
+  });
+
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
-    formNote.style.color = "";
+    clearErrors();
 
     var name = form.pname.value.trim();
     var phone = form.pphone.value.replace(/\D/g, "");
     var email = form.pemail.value.trim();
+    var pnote = form.pnote.value.trim();
     var consent = document.getElementById("pconsent").checked;
 
-    if (name.length < 2) return fail("Please enter the patient's name.", form.pname);
-    if (phone.length < 10) return fail("Please enter a 10-digit mobile number so the clinic can confirm.", form.pphone);
-    if (!email || email.indexOf("@") === -1) return fail("Please enter a valid email address.", form.pemail);
-    if (!consent) return fail("Please tick the consent box so the clinic may contact you.", document.getElementById("pconsent"));
+    if (!name || name.length < 2) {
+      return fail("Please enter the patient's name.", form.pname);
+    }
+    if (!phone || phone.length < 10) {
+      return fail("Please enter a valid 10-digit mobile number.", form.pphone);
+    }
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailPattern.test(email)) {
+      return fail("Please enter a valid email address.", form.pemail);
+    }
+    if (!pnote || pnote.length < 3) {
+      return fail("Please briefly describe your symptoms or reason for consultation.", form.pnote);
+    }
+    if (!consent) {
+      return fail("Please agree to the contact consent checkbox to proceed.", document.getElementById("pconsent"));
+    }
 
     var cmode = (form.querySelector("input[name=cmode]:checked") || {}).value || "Online (₹400)";
     var vtype = (form.querySelector("input[name=vtype]:checked") || {}).value || "First consultation";
@@ -138,7 +179,6 @@
 
     var pday = ""; // Handled by Calendly
     var psession = ""; // Handled by Calendly
-    var pnote = form.pnote.value.trim();
 
     var pretty = "";
     if (pday) {

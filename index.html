@@ -191,22 +191,22 @@
           <form id="bookForm" novalidate>
             <div class="row2">
               <div class="field">
-                <label for="pname">Patient name</label>
-                <input id="pname" name="pname" type="text" autocomplete="name" required>
+                <label for="pname">Patient name <span style="color:var(--arterial)">*</span></label>
+                <input id="pname" name="pname" type="text" autocomplete="name" placeholder="e.g. Ramesh Kumar" required>
               </div>
               <div class="field">
-                <label for="pphone">Mobile number</label>
-                <input id="pphone" name="pphone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10 digits" required>
+                <label for="pphone">Mobile number <span style="color:var(--arterial)">*</span></label>
+                <input id="pphone" name="pphone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit mobile number" required>
               </div>
             </div>
 
             <div class="field">
-              <label for="pemail">Email address</label>
-              <input id="pemail" name="pemail" type="email" autocomplete="email" required>
+              <label for="pemail">Email address <span style="color:var(--arterial)">*</span></label>
+              <input id="pemail" name="pemail" type="email" autocomplete="email" placeholder="name@example.com" required>
             </div>
 
             <div class="field">
-              <label>Consultation mode</label>
+              <label>Consultation mode <span style="color:var(--arterial)">*</span></label>
               <div class="segment">
                 <label><input type="radio" name="cmode" value="Online (₹400)" checked>Online (₹400)</label>
                 <label><input type="radio" name="cmode" value="In-Clinic at Surya Diagnosis (₹500)">In-Clinic / Surya Diagnosis (₹500)</label>
@@ -214,7 +214,7 @@
             </div>
 
             <div class="field">
-              <label>Type of visit</label>
+              <label>Type of visit <span style="color:var(--arterial)">*</span></label>
               <div class="segment">
                 <label><input type="radio" name="vtype" value="First consultation" checked>First consultation</label>
                 <label><input type="radio" name="vtype" value="Follow-up">Follow-up</label>
@@ -223,8 +223,8 @@
             </div>
 
             <div class="field">
-              <label for="pnote">What is the problem (Symptoms)</label>
-              <textarea id="pnote" name="pnote" placeholder="A line or two is enough — or use the note builder above."></textarea>
+              <label for="pnote">What is the problem (Symptoms) <span style="color:var(--arterial)">*</span></label>
+              <textarea id="pnote" name="pnote" placeholder="A line or two describing your symptoms — or use the note builder above." required></textarea>
             </div>
 
             <label class="consent">
@@ -233,7 +233,7 @@
             </label>
 
             <button class="btn btn-primary" type="submit" style="width:100%">Next: Pick a time slot</button>
-            <p class="form-note" id="formNote">This will open the calendar to choose your exact time.</p>
+            <p class="form-note" id="formNote" style="min-height:22px">Please fill all required details above before choosing a slot.</p>
           </form>
         </div>
 
