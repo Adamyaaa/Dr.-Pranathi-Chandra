@@ -124,6 +124,18 @@
     var vtype = (form.querySelector("input[name=vtype]:checked") || {}).value || "First consultation";
     var fullVType = cmode + " — " + vtype;
     var isClinic = cmode.indexOf("In-Clinic") !== -1;
+    var fee = isClinic ? 500 : 400;
+    window.pendingBooking = {
+      name: name,
+      phone: phone,
+      email: email,
+      amount: fee,
+      cmode: cmode,
+      vtype: vtype,
+      isClinic: isClinic,
+      appointmentId: null
+    };
+
     var pday = ""; // Handled by Calendly
     var psession = ""; // Handled by Calendly
     var pnote = form.pnote.value.trim();
@@ -174,10 +186,15 @@
       });
     }
 
+    // Determine backend API base (localhost during local testing, Render in production)
+    var API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? 'http://localhost:5000'
+      : 'https://dr-pranathi-chandra-live.onrender.com';
+    window.clinicApiBase = API_BASE;
+
     // Send to DB in background
     try {
-      const API_URL = "https://dr-pranathi-chandra-live.onrender.com/api/book";
-      await fetch(API_URL, {
+      var res = await fetch(API_BASE + "/api/book", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -190,17 +207,97 @@
           pnote: pnote
         })
       });
+      var bookData = await res.json();
+      if (bookData && bookData.data && bookData.data.id) {
+        window.pendingBooking.appointmentId = bookData.data.id;
+      }
     } catch (err) {
       console.error(err);
     }
   });
 
   // Listen for Calendly completion
-  window.addEventListener('message', function(e) {
+  window.addEventListener('message', async function(e) {
     if (e.data.event && e.data.event.indexOf('calendly') === 0) {
       if (e.data.event === 'calendly.event_scheduled') {
-        if (window.pendingWaUrl) {
-           window.location.href = window.pendingWaUrl;
+        var booking = window.pendingBooking;
+        var apiBase = window.clinicApiBase || 'https://dr-pranathi-chandra-live.onrender.com';
+
+        if (booking && window.Razorpay) {
+          try {
+            var orderRes = await fetch(apiBase + "/api/create-order", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                appointment_id: booking.appointmentId,
+                amount: booking.amount
+              })
+            });
+
+            var orderData = await orderRes.json();
+            if (!orderData.success || !orderData.order) {
+              throw new Error("Could not initialize payment order");
+            }
+
+            var rzp = new window.Razorpay({
+              key: orderData.key_id,
+              amount: orderData.order.amount,
+              currency: "INR",
+              name: "Dr. K. Pranathi Chandra Clinic",
+              description: booking.isClinic
+                ? "In-Clinic Consultation Fee (Surya Diagnosis)"
+                : "Online Consultation Fee (Google Meet)",
+              image: "assets/favicon.svg",
+              order_id: orderData.order.id,
+              prefill: {
+                name: booking.name,
+                email: booking.email,
+                contact: booking.phone
+              },
+              theme: {
+                color: "#0E2032"
+              },
+              handler: async function (response) {
+                // Verify payment on backend
+                try {
+                  await fetch(apiBase + "/api/verify-payment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      razorpay_order_id: response.razorpay_order_id,
+                      razorpay_payment_id: response.razorpay_payment_id,
+                      razorpay_signature: response.razorpay_signature,
+                      appointment_id: booking.appointmentId
+                    })
+                  });
+                } catch (vErr) {
+                  console.error("Payment verification call error:", vErr);
+                }
+
+                // Redirect to WhatsApp with payment confirmation attached
+                var paidNote = "\nPayment Status: PAID\nPayment ID: " + response.razorpay_payment_id + "\nAmount: ₹" + booking.amount;
+                window.location.href = window.pendingWaUrl + encodeURIComponent(paidNote);
+              },
+              modal: {
+                ondismiss: function() {
+                  if (confirm("Payment was not completed. Would you like to contact the clinic directly on WhatsApp to confirm your slot?")) {
+                    var pendingNote = "\nPayment Status: PENDING\nAmount Due: ₹" + booking.amount;
+                    window.location.href = window.pendingWaUrl + encodeURIComponent(pendingNote);
+                  }
+                }
+              }
+            });
+
+            rzp.open();
+          } catch (err) {
+            console.error("Error opening Razorpay checkout:", err);
+            // Fallback to WhatsApp if payment service is unreachable
+            if (window.pendingWaUrl) {
+              window.location.href = window.pendingWaUrl;
+            }
+          }
+        } else if (window.pendingWaUrl) {
+          window.location.href = window.pendingWaUrl;
         }
       }
     }
