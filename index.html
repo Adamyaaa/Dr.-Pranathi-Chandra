@@ -34,7 +34,7 @@
       <a href="#visit">Visit details</a>
       <a href="#about">Training</a>
     </nav>
-    <a class="btn btn-ghost btn-sm" href="tel:+919492034424">Call</a>
+    <a class="btn btn-ghost btn-sm" href="tel:+919494819494">Call</a>
     <a class="btn btn-primary btn-sm" href="#book">Book</a>
   </div>
 </header>
@@ -56,7 +56,7 @@
       </ul>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#book">Request an appointment</a>
-        <a class="btn btn-ghost" href="tel:+919492034424">Call 94920 34424</a>
+        <a class="btn btn-ghost" href="tel:+919494819494">Call 94948 19494</a>
       </div>
       <p class="hero-note">Requests are confirmed by the clinic, usually the same day. You will get a WhatsApp message with the date, time and address.</p>
     </div>
@@ -205,6 +205,14 @@
             </div>
 
             <div class="field">
+              <label>Consultation mode</label>
+              <div class="segment">
+                <label><input type="radio" name="cmode" value="Online (₹400)" checked>Online (₹400)</label>
+                <label><input type="radio" name="cmode" value="In-Clinic at Surya Diagnosis (₹500)">In-Clinic / Surya Diagnosis (₹500)</label>
+              </div>
+            </div>
+
+            <div class="field">
               <label>Type of visit</label>
               <div class="segment">
                 <label><input type="radio" name="vtype" value="First consultation" checked>First consultation</label>
@@ -238,16 +246,29 @@
       <div id="visit">
         <div class="visit">
           <dl>
-            <div class="r"><dt>Format</dt><dd>Online Consultation<small>Video consultation via Google Meet</small></dd></div>
-            <div class="r"><dt>Days</dt><dd>Monday to Saturday</dd></div>
-            <div class="r"><dt>Timings</dt><dd>10:00 AM to 5:00 PM</dd></div>
-            <div class="r"><dt>Consultation fee</dt><dd>₹ 500<small>Paid securely online before the call.</small></dd></div>
+            <div class="r">
+              <dt>Online</dt>
+              <dd>
+                <strong>Video Consultation (Google Meet)</strong>
+                <small style="color:var(--ink-1);margin-top:2px">Timings: 9:00 AM to 9:00 PM (Mon – Sat)</small>
+                <small>Consultation fee: ₹ 400</small>
+              </dd>
+            </div>
+            <div class="r">
+              <dt>In-Clinic</dt>
+              <dd>
+                <strong>Surya Diagnosis (Secunderabad)</strong>
+                <small style="color:var(--ink-1);margin-top:2px">Timings: 5:30 PM to 8:30 PM (Mon – Sat)</small>
+                <small>Consultation fee: ₹ 500</small>
+                <small style="margin-top:5px;line-height:1.45;color:var(--ink-2)">Opp: Gandhi Hospital Back Gate, 6-1-121, Bapuji Nagar, MIGH Colony, Walker Town, Padma Rao Nagar, Secunderabad, Hyderabad, Telangana 500020</small>
+              </dd>
+            </div>
             <div class="r"><dt>Languages</dt><dd>Telugu, Hindi, English</dd></div>
             <div class="r"><dt>Support</dt><dd><a href="tel:+919492034424" style="text-decoration:none;border-bottom:1px solid var(--line)">94920 34424</a><small>For queries and booking support</small></dd></div>
-            <div class="r"><dt>Preparation</dt><dd>Please keep previous prescriptions, X-rays, and your inhaler ready during the video call.</dd></div>
+            <div class="r"><dt>Preparation</dt><dd>Please keep previous prescriptions, X-rays/CT scans, and your inhaler ready.</dd></div>
           </dl>
         </div>
-        <p class="form-note">Appointments are not confirmed until you receive a confirmation message and Google Meet link. All consultations are strictly remote.</p>
+        <p class="form-note">Appointments are confirmed directly by the clinic on WhatsApp with your confirmed slot, consultation link, or clinic directions.</p>
       </div>
     </div>
   </div>
@@ -302,8 +323,8 @@
     <details><summary>My cough has lasted more than three weeks. Is that serious?</summary>
       <p>A cough lasting over three weeks should be assessed rather than treated blindly with repeated antibiotics or cough syrups. There are several possible reasons, and the assessment usually starts with a chest X-ray and a sputum test. It is worth getting checked.</p></details>
 
-    <details><summary>Do I have to visit a physical clinic?</summary>
-      <p>No. Dr. Pranathi Chandra practices exclusively via telemedicine. All consultations are 100% online video calls, meaning you get specialist care from the comfort of your home.</p></details>
+    <details><summary>Do I have to visit a physical clinic, or can I consult online?</summary>
+      <p>Both options are available! You can consult online via secure video call (9:00 AM to 9:00 PM, ₹400) or visit in person at Surya Diagnosis, Opp: Gandhi Hospital Back Gate, Secunderabad (5:30 PM to 8:30 PM, ₹500).</p></details>
 
     <details><summary>Is my information kept private?</summary>
       <p>Your name, number and the reason for the visit are used only to arrange and follow up your consultation. They are not sold or shared for marketing. You can ask for your details to be deleted at any time by messaging the clinic. See the <a href="privacy.html">privacy note</a>.</p></details>
@@ -348,7 +369,7 @@
 </footer>
 
 <div class="sticky-bar">
-  <a class="btn btn-ghost" href="tel:+919492034424">Call</a>
+  <a class="btn btn-ghost" href="tel:+919494819494">Call</a>
   <a class="btn btn-primary" href="#book">Request appointment</a>
 </div>
 
@@ -359,10 +380,17 @@
   "name":"Dr. K. Pranathi Chandra",
   "medicalSpecialty":"Pulmonary",
   "image":"assets/og.jpg",
-  "telephone":"+91-94920-34424",
+  "telephone":"+91-9494819494",
   "email":"drpranathichandra@gmail.com",
-  "address":{"@type":"PostalAddress","addressLocality":"Hyderabad","addressRegion":"Telangana","addressCountry":"IN"},
-  "areaServed":{"@type":"City","name":"Hyderabad"},
+  "address":{
+    "@type":"PostalAddress",
+    "streetAddress":"Surya Diagnosis, Opp: Gandhi Hospital Back Gate, 6-1-121, Bapuji Nagar, MIGH Colony, Walker Town, Padma Rao Nagar",
+    "addressLocality":"Secunderabad",
+    "addressRegion":"Telangana",
+    "postalCode":"500020",
+    "addressCountry":"IN"
+  },
+  "areaServed":[{"@type":"City","name":"Secunderabad"},{"@type":"City","name":"Hyderabad"}],
   "availableService":[
     {"@type":"MedicalTherapy","name":"Asthma assessment and management"},
     {"@type":"MedicalTherapy","name":"COPD assessment and management"},

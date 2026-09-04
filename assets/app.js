@@ -120,8 +120,10 @@
     if (!email || email.indexOf("@") === -1) return fail("Please enter a valid email address.", form.pemail);
     if (!consent) return fail("Please tick the consent box so the clinic may contact you.", document.getElementById("pconsent"));
 
+    var cmode = (form.querySelector("input[name=cmode]:checked") || {}).value || "Online (₹400)";
     var vtype = (form.querySelector("input[name=vtype]:checked") || {}).value || "First consultation";
-    var fullVType = vtype + " (Teleconsultation)";
+    var fullVType = cmode + " — " + vtype;
+    var isClinic = cmode.indexOf("In-Clinic") !== -1;
     var pday = ""; // Handled by Calendly
     var psession = ""; // Handled by Calendly
     var pnote = form.pnote.value.trim();
@@ -139,17 +141,19 @@
     submitBtn.disabled = true;
 
     var msg = [
-      "Online Appointment Request — Dr. K. Pranathi Chandra",
+      "Appointment Request — Dr. K. Pranathi Chandra",
       "",
       "Name: " + name,
       "Mobile: " + phone.slice(-10),
       "Email: " + email,
-      "Visit: " + fullVType,
+      "Consultation: " + cmode,
+      "Visit Type: " + vtype,
+      isClinic ? "Location: Surya Diagnosis, Secunderabad (5:30 PM - 8:30 PM)" : "Mode: Online Video Call (Google Meet, 9:00 AM - 9:00 PM)",
       "Slot: Selected via calendar",
-      pnote ? "\\n" + pnote : "",
+      pnote ? "\n" + pnote : "",
       "",
       "Sent by: " + email
-    ].filter(Boolean).join("\\n");
+    ].filter(Boolean).join("\n");
 
     // Save URL for later
     window.pendingWaUrl = "https://wa.me/" + CLINIC_WA + "?text=" + encodeURIComponent(msg);
