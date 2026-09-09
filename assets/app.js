@@ -200,7 +200,7 @@
       "Email: " + email,
       "Consultation: " + cmode,
       "Visit Type: " + vtype,
-      isClinic ? "Location: Surya Diagnosis, Secunderabad (5:30 PM - 8:30 PM)" : "Mode: Online Video Call (Google Meet, 9:00 AM - 9:00 PM)",
+      isClinic ? "Location: Surya Diagnostic Centre, Secunderabad (5:30 PM - 8:30 PM)" : "Mode: Online Video Call (Google Meet, 9:00 AM - 9:00 PM)",
       "Slot: Selected via calendar",
       pnote ? "\n" + pnote : "",
       "",
@@ -285,7 +285,7 @@
               currency: "INR",
               name: "Dr. K. Pranathi Chandra Clinic",
               description: booking.isClinic
-                ? "In-Clinic Consultation Fee (Surya Diagnosis)"
+                ? "In-Clinic Consultation Fee (Surya Diagnostic Centre)"
                 : "Online Consultation Fee (Google Meet)",
               image: "assets/favicon.svg",
               order_id: orderData.order.id,
