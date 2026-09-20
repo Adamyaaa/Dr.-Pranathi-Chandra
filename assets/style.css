@@ -80,7 +80,7 @@ header .wrap{display:flex;align-items:center;gap:18px;min-height:66px}
 
 /* ---------- hero ---------- */
 .hero{padding:44px 0 34px;position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1.16fr .84fr;gap:48px;align-items:center}
+.hero-grid{display:grid;grid-template-columns:1.28fr .72fr;gap:36px;align-items:center}
 .hero h1{font-size:clamp(36px,5vw,58px);letter-spacing:-.03em}
 .hero h1 em{display:block}
 .hero h1 em{font-style:normal;color:var(--arterial)}
@@ -95,7 +95,7 @@ header .wrap{display:flex;align-items:center;gap:18px;min-height:66px}
 .hero-note{font-size:13.5px;color:var(--ink-3);margin-top:14px}
 
 /* photo + breathing field */
-.portrait-wrap{position:relative;justify-self:center}
+.portrait-wrap{position:relative;justify-self:end;margin-right:14px}
 .portrait-wrap::before{
   content:"";position:absolute;left:50%;top:50%;width:132%;aspect-ratio:1;
   transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
@@ -254,6 +254,7 @@ footer li{margin-bottom:8px}
 @media (max-width:900px){
   .hero-grid,.check-grid,.book-grid,.about-grid,.foot-grid{grid-template-columns:1fr}
   .hero-grid{gap:28px}
+  .portrait-wrap{justify-self:center;margin-right:0}
   .portrait{width:min(258px,70%)}
   .stamp{right:auto;left:6px;bottom:-14px}
   .hero h1 em{display:inline}
