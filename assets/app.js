@@ -229,7 +229,7 @@
     // Determine backend API base (localhost during local testing, Render in production)
     var API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
       ? 'http://localhost:5000'
-      : 'https://dr-pranathi-chandra-live.onrender.com';
+      : 'https://dr-pranathi-chandra.onrender.com';
     window.clinicApiBase = API_BASE;
 
     // Send to DB in background
@@ -261,7 +261,7 @@
     if (e.data.event && e.data.event.indexOf('calendly') === 0) {
       if (e.data.event === 'calendly.event_scheduled') {
         var booking = window.pendingBooking;
-        var apiBase = window.clinicApiBase || 'https://dr-pranathi-chandra-live.onrender.com';
+        var apiBase = window.clinicApiBase || 'https://dr-pranathi-chandra.onrender.com';
 
         if (booking && window.Razorpay) {
           try {
