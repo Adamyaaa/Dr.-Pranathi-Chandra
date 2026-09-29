@@ -12,8 +12,8 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Sanitize and parse DATABASE_URL
-let dbUrl = (process.env.DATABASE_URL || '').trim();
+// Sanitize and parse DATABASE_URL (accepts DATABSE_URL typo as fallback)
+let dbUrl = (process.env.DATABASE_URL || process.env.DATABSE_URL || '').trim();
 if ((dbUrl.startsWith('"') && dbUrl.endsWith('"')) || (dbUrl.startsWith("'") && dbUrl.endsWith("'"))) {
   dbUrl = dbUrl.slice(1, -1).trim();
 }
