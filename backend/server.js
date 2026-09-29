@@ -12,9 +12,23 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Sanitize and parse DATABASE_URL
+let dbUrl = (process.env.DATABASE_URL || '').trim();
+if ((dbUrl.startsWith('"') && dbUrl.endsWith('"')) || (dbUrl.startsWith("'") && dbUrl.endsWith("'"))) {
+  dbUrl = dbUrl.slice(1, -1).trim();
+}
+if (dbUrl.startsWith('DATABASE_URL=')) {
+  dbUrl = dbUrl.replace(/^DATABASE_URL=/, '').trim().replace(/^["']|["']$/g, '');
+}
+
+console.log('--- Environment Check ---');
+console.log('DATABASE_URL:', dbUrl ? `Configured (length: ${dbUrl.length}, starts with: ${dbUrl.slice(0, 15)}...)` : 'NOT FOUND / EMPTY');
+console.log('RAZORPAY_KEY_ID:', process.env.RAZORPAY_KEY_ID ? 'Configured' : 'NOT FOUND / EMPTY');
+console.log('-------------------------');
+
 // Database connection
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: dbUrl || undefined,
   ssl: {
     rejectUnauthorized: false
   }
@@ -22,8 +36,8 @@ const pool = new Pool({
 
 // Initialize Razorpay
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET
+  key_id: (process.env.RAZORPAY_KEY_ID || '').trim().replace(/^["']|["']$/g, ''),
+  key_secret: (process.env.RAZORPAY_KEY_SECRET || '').trim().replace(/^["']|["']$/g, '')
 });
 
 // Test DB connection on startup and ensure payment columns exist
